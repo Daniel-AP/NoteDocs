@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tiptap {
+    @apply w-full min-h-full p-4 outline-none;
+}
+
+.tiptap :first-child {
+    @apply mt-0;
+}
+  
+.tiptap blockquote {
+    @apply p-4 my-4 border-l-4 bg-gray-50 italic text-gray-600;
+}
+  
+.tiptap blockquote p {
+    @apply leading-relaxed;
+}
+  
+.tiptap code {
+    @apply bg-gray-100 px-1 py-0.5 rounded-md font-mono text-red-600;
+}
+
+.tiptap h1, .tiptap h2, .tiptap h3, .tiptap h4, .tiptap h5, .tiptap h6 {
+    @apply font-bold text-gray-900 mt-0 mb-2;
+}
+  
+.tiptap h1 {
+    @apply text-4xl;
+}
+
+.tiptap h2 {
+    @apply text-3xl;
+}
+
+.tiptap h3 {
+    @apply text-2xl;
+}
+
+.tiptap h4 {
+    @apply text-xl;
+}
+
+.tiptap h5 {
+    @apply text-lg;
+}
+
+.tiptap h6 {
+    @apply text-base;
+}
+
+.tiptap ul {
+    @apply list-disc ml-4;
+}
+
+.tiptap ul[data-type="taskList"] {
+    @apply list-none ml-0;
+}
+
+.tiptap ul[data-type="taskList"] li {
+    @apply grid grid-cols-[repeat(auto-fill,minmax(15px,1fr))] gap-2;
+}
+
+.tiptap ul[data-type="taskList"] input {
+    @apply accent-blue-800;
+}
+
+.tiptap ul[data-type="taskList"] li p {
+    @apply text-nowrap;
+}
+
+.tiptap ol {
+    @apply list-decimal ml-4;
+}
+
+.tiptap ol li::marker {
+    @apply font-bold;
+}
+
+.tiptap a {
+    @apply text-blue-600 underline hover:text-blue-800 transition duration-150 ease-in-out cursor-pointer;
+}
+
+.tiptap a:visited {
+    @apply text-purple-600;
+}
+
+.tiptap a:hover {
+    @apply text-blue-800 underline-offset-2;
+}
+
+.tiptap a:active {
+    @apply text-blue-900;
+}
+
+.tiptap a.focus {
+    @apply outline-none ring-2 ring-blue-500;
+}
+
+.tiptap img {
+    @apply outline outline-2 outline-offset-1 outline-transparent transition-[outline-color] duration-200 my-2;
+}
+
+.tiptap img.ProseMirror-selectednode {
+    @apply outline-gray-400 outline-4;
+}
+
+.ProseMirror [draggable][contenteditable="false"] {
+    @apply select-text;
+}
+
+.ProseMirror img.ProseMirror-separator {
+    width: 0 !important;
+    height: 0 !important;
+}

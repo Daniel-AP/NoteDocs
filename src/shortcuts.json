@@ -1,0 +1,70 @@
+[
+    {
+      "name": "Navegación y gestión",
+      "shortcuts": [
+        { "action": "Guardar archivo", "keys": ["Control", "S"] },
+        { "action": "Abrir archivo", "keys": ["Control", "O"] },
+        { "action": "Abrir nueva pestaña", "keys": ["Control", "T"] },
+        { "action": "Cerrar pestaña actual", "keys": ["Control", "W"] },
+        { "action": "Ir a la pestaña siguiente", "keys": ["Control", "Tab"] },
+        { "action": "Ir a la pestaña anterior", "keys": ["Control", "Shift", "Tab"] },
+        { "action": "Ir a pestaña específica", "keys": ["Control", "1-9"] },
+        { "action": "Mostrar panel de atajos", "keys": ["Control", "K"] }
+      ]
+    },
+    {
+      "name": "Esenciales",
+      "shortcuts": [
+        { "action": "Copiar", "keys": ["Control", "C"] },
+        { "action": "Cortar", "keys": ["Control", "X"] },
+        { "action": "Pegar", "keys": ["Control", "V"] },
+        { "action": "Pegar sin formato", "keys": ["Control", "Shift", "V"] },
+        { "action": "Deshacer", "keys": ["Control", "Z"] },
+        { "action": "Rehacer", "keys": ["Control", "Y"] }
+      ]
+    },
+    {
+      "name": "Formato de texto",
+      "shortcuts": [
+        { "action": "Negrita", "keys": ["Control", "B"] },
+        { "action": "Cursiva", "keys": ["Control", "I"] },
+        { "action": "Subrayar", "keys": ["Control", "U"] },
+        { "action": "Tachado", "keys": ["Control", "Shift", "S"] },
+        { "action": "Resaltar", "keys": ["Control", "Shift", "H"] },
+        { "action": "Código", "keys": ["Control", "E"] }
+      ]
+    },
+    {
+      "name": "Formato de párrafo",
+      "shortcuts": [
+        { "action": "Aplicar estilo de texto normal", "keys": ["Control", "Alt", "0"] },
+        { "action": "Aplicar estilo de encabezado 1", "keys": ["Control", "Alt", "1"] },
+        { "action": "Aplicar estilo de encabezado 2", "keys": ["Control", "Alt", "2"] },
+        { "action": "Aplicar estilo de encabezado 3", "keys": ["Control", "Alt", "3"] },
+        { "action": "Aplicar estilo de encabezado 4", "keys": ["Control", "Alt", "4"] },
+        { "action": "Aplicar estilo de encabezado 5", "keys": ["Control", "Alt", "5"] },
+        { "action": "Aplicar estilo de encabezado 6", "keys": ["Control", "Alt", "6"] },
+        { "action": "Lista ordenada", "keys": ["Control", "Shift", "7"] },
+        { "action": "Lista con viñetas", "keys": ["Control", "Shift", "8"] },
+        { "action": "Lista de tareas", "keys": ["Control", "Shift", "9"] },
+        { "action": "Cita", "keys": ["Control", "Shift", "B"] },
+        { "action": "Alinear a la izquierda", "keys": ["Control", "Shift", "L"] },
+        { "action": "Centrar", "keys": ["Control", "Shift", "E"] },
+        { "action": "Alinear a la derecha", "keys": ["Control", "Shift", "R"] },
+        { "action": "Justificar", "keys": ["Control", "Shift", "J"] },
+        { "action": "Bloque de código", "keys": ["Control", "Alt", "C"] },
+        { "action": "Subíndice", "keys": ["Control", ","] },
+        { "action": "Superíndice", "keys": ["Control", "."] }
+      ]
+    },
+    {
+      "name": "Selección de texto",
+      "shortcuts": [
+        { "action": "Seleccionar todo", "keys": ["Control", "A"] },
+        { "action": "Extender selección un carácter a la izquierda", "keys": ["Shift", "←"] },
+        { "action": "Extender selección un carácter a la derecha", "keys": ["Shift", "→"] },
+        { "action": "Extender selección una línea hacia arriba", "keys": ["Shift", "↑"] },
+        { "action": "Extender selección una línea hacia abajo", "keys": ["Shift", "↓"] }
+      ]
+    }
+]  

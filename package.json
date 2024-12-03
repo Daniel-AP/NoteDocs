@@ -1,0 +1,56 @@
+{
+  "name": "note-docs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && electron-builder",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "overrides": {
+    "eslint": "^9",
+    "glob": "^10"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@tiptap/extension-character-count": "^2.10.2",
+    "@tiptap/extension-highlight": "^2.10.2",
+    "@tiptap/extension-image": "^2.10.2",
+    "@tiptap/extension-link": "^2.10.2",
+    "@tiptap/extension-subscript": "^2.10.2",
+    "@tiptap/extension-superscript": "^2.10.2",
+    "@tiptap/extension-task-item": "^2.10.2",
+    "@tiptap/extension-task-list": "^2.10.2",
+    "@tiptap/extension-text": "^2.10.2",
+    "@tiptap/extension-text-align": "^2.10.2",
+    "@tiptap/extension-typography": "^2.10.2",
+    "@tiptap/extension-underline": "^2.10.2",
+    "@tiptap/pm": "^2.10.2",
+    "@tiptap/react": "^2.10.2",
+    "@tiptap/starter-kit": "^2.10.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "electron": "^30.5.1",
+    "electron-builder": "^24.13.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vite-plugin-electron": "^0.28.8",
+    "vite-plugin-electron-renderer": "^0.14.6"
+  },
+  "main": "dist-electron/main.js"
+}

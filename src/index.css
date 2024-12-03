@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+    margin: 0;
+    height: 100%;
+}
+
+#root:not([inert]) header {
+    -webkit-app-region: drag;
+}
+
+nav {
+    -webkit-app-region: no-drag;
+}
+
+nav div::-webkit-scrollbar {
+    @apply hidden;
+}
+
+div[data-headlessui-portal] ::-webkit-scrollbar {
+    @apply hidden;
+}
+
+table {
+    @apply w-full table-auto border-collapse text-sm;
+}
+
+table td {
+    @apply border-y text-left align-baseline py-3 ps-2 leading-normal;
+}
+
+kbd {
+    @apply inline-block rounded border px-2 py-1 my-0.5 leading-tight;
+}
+
+button {
+    @apply !cursor-default;
+}
