@@ -1,100 +1,111 @@
 # NoteDocs
 
-NoteDocs is a desktop notes application developed using the following technologies:
+NoteDocs is a desktop notes application built with Electron, React, and TypeScript.
 
-- **React**
-- **Electron**
-- **TypeScript**
-- **Tiptap**
-- **TailwindCSS**
+It started for a simple reason. The default Windows Notes app didn’t let me paste images and at the time it also didn’t support Markdown-style formatting. For technical notes that quickly became limiting. Instead of switching tools, I built one that handled images, structured content, and multiple open documents properly.
 
-Currently, the app is designed for Windows, as testing on macOS was not possible during development.
+The project focuses not just on features but on building a clean Electron architecture with clear process boundaries and predictable state management.
 
-## Features
+Currently tested on Windows.
 
-- **Rich Text Editing**: Supports pasting images directly into the editor and automatically links URLs when pasted.
-- **Text Input Rules**: Automatically converts specific text patterns into symbols or formatted text. Supported rules include:
-  - `--` → `—` (em dash)
-  - `...` → `…` (ellipsis)
-  - `"` → `“` or `”` (smart double quotes)
-  - `'` → `‘` or `’` (smart single quotes)
-  - `<-` → `←` (left arrow)
-  - `->` → `→` (right arrow)
-  - `(c)` → `©` (copyright sign)
-  - `(r)` → `®` (registered trademark)
-  - `(tm)` → `™` (trademark sign)
-  - `1/2` → `½` (one half)
-  - `1/4` → `¼` (one quarter)
-  - `3/4` → `¾` (three quarters)
-  - `+/-` → `±` (plus/minus sign)
-  - `!=` → `≠` (not equal sign)
-  - `<<` → `«` (left-pointing double angle quotation mark)
-  - `>>` → `»` (right-pointing double angle quotation mark)
-  - `2*3` or `2x3` → `2×3` (multiplication sign)
-  - `^2` → `²` (superscript two)
-  - `^3` → `³` (superscript three)
+---
 
-## Keyboard Shortcuts
+## Screenshot
 
-### Navigation and File Management
-- **Save File**: `Ctrl + S`
-- **Open File**: `Ctrl + O`
-- **Open New Tab**: `Ctrl + T`
-- **Close Current Tab**: `Ctrl + W`
-- **Next Tab**: `Ctrl + Tab`
-- **Previous Tab**: `Ctrl + Shift + Tab`
-- **Go to Specific Tab**: `Ctrl + [1-9]`
-- **Show Shortcuts Panel**: `Ctrl + K`
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/c6df86b2-ba37-4a50-ba93-1f8f265674de" />
 
-### Essentials
-- **Copy**: `Ctrl + C`
-- **Cut**: `Ctrl + X`
-- **Paste**: `Ctrl + V`
-- **Paste Without Formatting**: `Ctrl + Shift + V`
-- **Undo**: `Ctrl + Z`
-- **Redo**: `Ctrl + Y`
+The app also includes a dedicated shortcuts panel for quick reference.
 
-### Text Formatting
-- **Bold**: `Ctrl + B`
-- **Italic**: `Ctrl + I`
-- **Underline**: `Ctrl + U`
-- **Strikethrough**: `Ctrl + Shift + S`
-- **Highlight**: `Ctrl + Shift + H`
-- **Code**: `Ctrl + E`
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/1da6440d-d5a5-4d8d-a26b-8784eed37395" />
 
-### Paragraph Formatting
-- **Normal Text Style**: `Ctrl + Alt + 0`
-- **Heading 1**: `Ctrl + Alt + 1`
-- **Heading 2**: `Ctrl + Alt + 2`
-- **Heading 3**: `Ctrl + Alt + 3`
-- **Heading 4**: `Ctrl + Alt + 4`
-- **Heading 5**: `Ctrl + Alt + 5`
-- **Heading 6**: `Ctrl + Alt + 6`
-- **Ordered List**: `Ctrl + Shift + 7`
-- **Bulleted List**: `Ctrl + Shift + 8`
-- **Task List**: `Ctrl + Shift + 9`
-- **Quote**: `Ctrl + Shift + B`
-- **Align Left**: `Ctrl + Shift + L`
-- **Align Center**: `Ctrl + Shift + E`
-- **Align Right**: `Ctrl + Shift + R`
-- **Justify**: `Ctrl + Shift + J`
-- **Code Block**: `Ctrl + Alt + C`
-- **Subscript**: `Ctrl + ,`
-- **Superscript**: `Ctrl + .`
+The panel is accessible via `Ctrl + K` and provides an overview of navigation, formatting, and document management shortcuts.
 
-### Text Selection
-- **Select All**: `Ctrl + A`
-- **Extend Selection Left**: `Shift + ←`
-- **Extend Selection Right**: `Shift + →`
-- **Extend Selection Up**: `Shift + ↑`
-- **Extend Selection Down**: `Shift + ↓`
+---
 
-## How to Run
+## Architecture
 
-1. Clone the repository.
-2. Install dependencies using `npm install`.
-3. Start the development environment with `npm run dev`.
-4. Build the application for production using `npm run build`.
+The application is built with a clear separation between processes.
 
-## License
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+The main process manages window lifecycle, file system access, and application shutdown. All file operations are intentionally restricted to the main process to prevent the UI layer from accessing the operating system directly.
+
+The preload layer exposes a minimal API to the renderer. This keeps system-level capabilities isolated and avoids mixing UI logic with OS access.
+
+The renderer contains the React interface, editor logic, and application state. It does not access Node APIs directly. All communication with the system occurs through IPC.
+
+Application shutdown is explicitly controlled. The main process intercepts the close event, the renderer evaluates unsaved changes, and termination proceeds only after confirmation. This prevents silent data loss and ensures consistent state handling.
+
+---
+
+## Data Modeling
+
+The core model revolves around tabs.
+
+### 1. Tab
+
+Each tab represents an open document.
+
+A tab contains
+
+- A unique identifier  
+- The document content as structured JSON  
+- The file path if the document has been saved  
+- An unsaved changes flag  
+
+Tabs are stored in an in-memory collection and there is always one active tab.
+
+Keeping tabs fully in memory allows fast switching and independent change tracking per document.
+
+---
+
+### 2. Document
+
+Documents are not stored as plain text.
+
+Content is stored as structured JSON generated by Tiptap. This structure represents nodes such as paragraphs, headings, lists, images, and formatted text.
+
+Using a structured model preserves formatting and embedded media without requiring manual parsing.
+
+Before saving, the document structure is validated to avoid persisting invalid data.
+
+---
+
+### 3. Global State
+
+State is divided into three parts
+
+- Application state for tabs, active tab, and unsaved changes  
+- Editor state for the current editor instance  
+- Modal state for dialog visibility  
+
+State is separated by responsibility instead of centralized into a single store. This keeps update flows clear and avoids unnecessary dependencies between unrelated parts of the UI.
+
+---
+
+## Editor Implementation
+
+The editor is built on Tiptap with custom extensions.
+
+It supports direct image pasting, automatic URL linking, input rules for text transformation, and structured formatting such as headings, lists, code blocks, and alignment.
+
+Text transformations are implemented as editor rules rather than post-processing. This keeps behavior aligned with the editor’s internal document model.
+
+---
+
+## Tech Stack
+
+Electron  
+React  
+TypeScript  
+Tiptap  
+Zustand  
+TailwindCSS  
+Vite  
+electron-builder  
+
+---
+
+## Run the Project
+
+```bash
+npm install
+npm run dev
